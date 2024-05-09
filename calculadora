@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o nome do professor: ");
+        String nomeProfessor = scanner.nextLine();
+
+        System.out.println("Selecione o regime de pagamento:");
+        System.out.println("1. CLT");
+        System.out.println("2. Horista");
+        System.out.println("3. PJ");
+        System.out.print("Opção: ");
+        int opcaoRegime = scanner.nextInt();
+
+        double valorReceber = 0.0;
+
+        switch (opcaoRegime) {
+            case 1:
+                System.out.print("Digite o salário bruto: ");
+                double salarioBrutoCLT = scanner.nextDouble();
+                System.out.print("Digite o desconto de INSS (%): ");
+                double descontoINSS = scanner.nextDouble();
+            
+                valorReceber = calcularValorCLT(salarioBrutoCLT, descontoINSS);
+                break;
+
+            case 2:
+                System.out.print("Digite o valor da hora: ");
+                double valorHora = scanner.nextDouble();
+                System.out.print("Digite a quantidade de horas trabalhadas: ");
+                double horasTrabalhadas = scanner.nextDouble();
+                valorReceber = calcularValorHorista(valorHora, horasTrabalhadas);
+                break;
+
+            case 3:
+                System.out.print("Digite o valor por hora: ");
+                double valorHoraPJ = scanner.nextDouble();
+                System.out.print("Digite a quantidade de horas trabalhadas: ");
+                double horasTrabalhadasPJ = scanner.nextDouble();
+                valorReceber = calcularValorPJ(valorHoraPJ, horasTrabalhadasPJ);
+                break;
+
+            default:
+                System.out.println("Opção inválida!");
+                return;
+        }
+        System.out.println("O professor " + nomeProfessor + " receberá R$" + valorReceber);
+    }
+    public static double calcularValorCLT(double salarioBruto, double descontoINSS) {
+        double desconto = salarioBruto * (descontoINSS / 100);
+        return salarioBruto - desconto;
+    }
+    public static double calcularValorHorista(double valorHora, double horasTrabalhadas) {
+        return valorHora * horasTrabalhadas;
+    }
+    public static double calcularValorPJ(double valorHoraPJ, double horasTrabalhadasPJ) {
+        return valorHoraPJ * horasTrabalhadasPJ;
+    }
+}
